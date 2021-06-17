@@ -36,3 +36,13 @@ wire SoundName from Sound Card to Central Processing Unit
 
 
 it's a lot of wiring but it's nice to keep everything separate
+
+to start the computer, well just start a computer as you would normally do, don't forget to turn on the main power from the back
+
+for commands it has only few atm i plan on making hard drives etc
+
+commands:
+
+play (song1-3)
+
+start (chat, console) (dungeon master is not coded in yet)

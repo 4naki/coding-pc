@@ -1,0 +1,38 @@
+How to use
+
+spawn 2 screens, 1 for the main screen second one for console screen if you want to use it (highly recommended)
+
+spawn one button for each screen, this will be used to turn them on
+
+spawn a wire text entry, this will become our keyboard
+
+spawn the E2s
+
+wire all the entities from the case e2
+
+wire Power from these (Chat Reciever, Graphics Interface, Central Processing Unit, Sound Card and Case) to the Power Supply's Power
+
+wire PowerCut from Case, Power Supply and Graphics Interface to a toggle button, you can place it behind the case
+
+wire CPUUsage from Power Supply to Central Processing Unit's Usage
+
+wire GPUUsage from Power Supply to Graphics Interface's Usage
+
+wire CRUsage from Power Supply to Chat Reciever's Usage
+
+wire LastSaid and LastSaidPerson from Central Processing Unit to Chat Reciever
+
+wire String from Graphics Interface to Central Processing Unit's StringOut
+
+wire ConsoleString from Graphics Interface to Central Processing Unit's ConsoleOut
+
+wire Stop from Graphics Interface to Central Processing Unit's Stop
+
+wire ScreenPower and ConsolePower from Graphics Interface to the Screens' power buttons
+
+additionally you can spawn 1-4 props that work as speakers, each wired to the Sound Card
+
+wire SoundName from Sound Card to Central Processing Unit
+
+
+it's a lot of wiring but it's nice to keep everything separate

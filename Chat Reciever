@@ -1,0 +1,21 @@
+@name Chat Reciever
+@inputs Power
+@outputs LastSaidPerson:string LastSaid:string Usage 
+@persist Usage
+@model models/cheeze/wires/wireless_card.mdl
+runOnChat(1)
+if(first()){
+    Usage=50
+}
+PowerOn=Power>0
+if(PowerOn){
+if(Power>Usage){
+if(chatClk()){
+LastSaidPerson=lastSpoke():name()
+LastSaid=lastSaid()
+}
+}
+}
+if(dupefinished()){
+reset()
+}

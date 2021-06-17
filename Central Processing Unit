@@ -1,0 +1,416 @@
+@name Central Processing Unit
+@inputs LastSaidPerson:string LastSaid:string Update Power TextEntry:string
+@outputs StringOut:string Usage ConsoleOut:string Stop SoundFile:string
+@persist Count Text:string TextConsole:string String:string ConsoleString:string Usage TextEntry:string Song:string Program:string DefaultProgram:string ProgramData:string Ready WhatProgramtoStart PowerDown Stop SoundFile:string Song01Path:string Song02Path:string Song03Path:string
+@model models/cheeze/wires/cpu2.mdl
+runOnChat(1)
+interval(100)
+if(first()){
+    Text="Chat"
+    
+    TextConsole="Naki.OS"+
+                "<br>"+"----------------------------------------------------------------"
+    String+LastSaidPerson+": "+LastSaid+"<br>"
+    
+    #StringOut=Text+"<br>"+String
+    ConsoleOut=TextConsole+"<br>"+ConsoleString
+    
+    Usage=120
+    DefaultProgram="console"
+    Ready=0
+    PowerDown=0
+    Stop=3
+    SoundFile=""
+    
+    Song01Path="music/HL2_song31.mp3"
+    Song02Path="music/HL2_song20_submix0.mp3"
+    Song03Path="music/HL2_song29.mp3"
+}
+PowerOn=Power>0
+
+if(changed(PowerOn)&PowerOn){
+    timer("startup",100)
+}
+if(changed(!PowerOn)&!PowerOn){
+    stoptimer("startup")
+    stoptimer("mainScreen")
+    stoptimer("startup1")
+    stoptimer("console2")
+    timer("shuttingdown",200)
+    timer("powerDown",5000)
+    Ready=0
+}
+if(PowerOn){
+    Stop=3
+if(Power>Usage){
+
+if(clk("startup")){
+    timer("mainScreen",7200)
+    timer("startup1",1500)
+    timer("console2",5000)
+    StringOut=""
+    ConsoleString="<br>"+"Starting Operating System . . ."
+    ConsoleOut=TextConsole+ConsoleString
+}
+if(clk("console2")){
+    ConsoleString="<br>"+"Operating System Operational And Ready."
+    ConsoleOut=TextConsole+ConsoleString
+}
+if(clk("console3")){
+    if(DefaultProgram==""){
+    Program=""
+    Ready=1
+    ConsoleString="<br>"+"No Startup Program Selected, Nothing Started."
+    ConsoleOut=TextConsole+ConsoleString
+    timer("clear",500)
+    }else{
+    Program=DefaultProgram
+    Ready=1
+    ConsoleString="<br>"+DefaultProgram+" Started."
+    ConsoleOut=TextConsole+ConsoleString
+    timer("startupcheck",500)
+    }
+}
+if(clk("startup1")){
+    timer("loadingos",250)
+    entity():soundPlay(1,0,"hl1/fvox/beep.wav")
+}
+if(!Ready){
+if(clk("loadingos")){
+    timer("loadingos1",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                    Starting Up Naki.OS                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    /                                  "
+}
+if(clk("loadingos1")){
+    timer("loadingos2",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                    Starting Up Naki.OS                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    -                                  "
+}
+if(clk("loadingos2")){
+    timer("loadingos3",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                    Starting Up Naki.OS                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    \                                  "
+}
+if(clk("loadingos3")){
+    timer("loadingos4",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                    Starting Up Naki.OS                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    |                                  "
+}
+if(clk("loadingos4")){
+    timer("loadingos5",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                    Starting Up Naki.OS                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    /                                  "
+}
+if(clk("loadingos5")){
+    timer("loadingos6",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                    Starting Up Naki.OS                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    -                                  "
+}
+if(clk("loadingos6")){
+    timer("loadingos7",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                    Starting Up Naki.OS                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    \                                  "
+}
+if(clk("loadingos7")){
+    timer("loadingos",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                    Starting Up Naki.OS                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    |                                  "
+}
+}
+if(clk("mainScreen")){
+    timer("console3",1500)
+    ConsoleString="<br>"+"Starting "+DefaultProgram
+    ConsoleOut=TextConsole+ConsoleString
+}
+if(clk("clear")){
+    StringOut=""
+}
+if(Program:lower()=="chat"){
+if(clk("startupcheck")){
+    timer("chatcheck",10)
+}
+if(chatClk()){
+    timer("chatcheck",10)
+}
+if(clk("chatcheck")){
+String=String+LastSaidPerson+": "+LastSaid+"<br>"
+StringOut=Text+"<br>"+String
+Count++
+if(Count>14){
+Count=0
+String=LastSaidPerson+": "+LastSaid+"<br>"
+}
+}
+
+}
+if(Program:lower()=="console"){
+StringOut=ConsoleOut
+}
+if(changed(TextEntry:lower()=="play")&TextEntry:lower()=="play"){
+    ConsoleString="<br>"+"play: Song Name."
+    ConsoleOut=TextConsole+ConsoleString
+}
+if(changed(TextEntry:lower()=="song1")&TextEntry:lower()=="song1"){
+    ConsoleString="<br>"+"Playing Song1."
+    ConsoleOut=TextConsole+ConsoleString
+    SoundFile=Song01Path
+}
+if(changed(TextEntry:lower()=="song2")&TextEntry:lower()=="song2"){
+    ConsoleString="<br>"+"Playing Song2."
+    ConsoleOut=TextConsole+ConsoleString
+    SoundFile=Song02Path
+}
+if(changed(TextEntry:lower()=="song3")&TextEntry:lower()=="song3"){
+    ConsoleString="<br>"+"Playing Song3."
+    ConsoleOut=TextConsole+ConsoleString
+    SoundFile=Song03Path
+}
+if(changed(TextEntry:lower()=="none")&TextEntry:lower()=="none"){
+    ConsoleString="<br>"+""
+    ConsoleOut=TextConsole+ConsoleString
+    SoundFile=""
+}
+if(changed(TextEntry:lower()=="start")&TextEntry:lower()=="start"){
+    WhatProgramtoStart=1
+    ConsoleString="<br>"+"start: Program Name."
+    ConsoleOut=TextConsole+ConsoleString
+}
+if(changed(TextEntry:lower()=="chat")&TextEntry:lower()=="chat"){
+    WhatProgramtoStart=0
+    if(Program:lower()=="chat"){
+    ConsoleString="<br>"+"This program is already open."
+    ConsoleOut=TextConsole+ConsoleString
+    }else{
+    ConsoleString="<br>"+"Starting Chat."
+    ConsoleOut=TextConsole+ConsoleString
+    timer("startprogram",500)
+    Program="Chat"
+    }
+}
+if(changed(TextEntry:lower()=="console")&TextEntry:lower()=="console"){
+    ConsoleString="<br>"+"Starting Console."
+    ConsoleOut=TextConsole+ConsoleString
+    timer("startprogram",500)
+    Program="Console"
+}
+if(changed(TextEntry:lower()=="dungeon master")&TextEntry:lower()=="dungeon master"){
+    WhatProgramtoStart=0
+    if(Program:lower()=="dungeon master"){
+    ConsoleString="<br>"+"This program is already open."
+    ConsoleOut=TextConsole+ConsoleString
+    }else{
+    ConsoleString="<br>"+"Starting Dungeon Master."
+    ConsoleOut=TextConsole+ConsoleString
+    timer("startprogram",800)
+    Program="Dungeon Master"
+    }
+}
+if(clk("startprogram")){
+ConsoleString="<br>"+Program+" Started."
+ConsoleOut=TextConsole+ConsoleString
+timer("chatcheck",10)
+}
+}
+}
+if(clk("shuttingdown")){
+    PowerDown=1
+    Stop=1
+    ConsoleOut=""
+    timer("shuttingdown1",100)
+}
+if(clk("powerDown")){
+    PowerDown=0
+    Stop=0
+    StringOut=""
+}
+if(Stop==1){
+if(PowerDown==1){
+if(clk("shuttingdown1")){
+    timer("shuttingdown2",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                        Shutting Down                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    /                                  "
+}
+if(clk("shuttingdown2")){
+    timer("shuttingdown3",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                        Shutting Down                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    -                                  "
+}
+if(clk("shuttingdown3")){
+    timer("shuttingdown4",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                        Shutting Down                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    \                                  "
+}
+if(clk("shuttingdown4")){
+    timer("shuttingdown5",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                        Shutting Down                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    |                                  "
+}
+if(clk("shuttingdown5")){
+    timer("shuttingdown6",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                        Shutting Down                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    /                                  "
+}
+if(clk("shuttingdown6")){
+    timer("shuttingdown7",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                        Shutting Down                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    -                                  "
+}
+if(clk("shuttingdown7")){
+    timer("shuttingdown8",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                        Shutting Down                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    \                                  "
+}
+if(clk("shuttingdown8")){
+    timer("shuttingdown1",250)
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                        Shutting Down                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                    |                                  "
+}
+}
+}
+if(dupefinished()){
+reset()
+}

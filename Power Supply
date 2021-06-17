@@ -1,0 +1,18 @@
+@name Power Supply
+@inputs PowerOn PowerCut CPUUsage GPUUsage CRUsage
+@outputs Power 
+@persist Cap PowerOnVal
+@model models/bull/gates/resistor.mdl
+if(first()){
+    Cap=750
+    PowerOnVal=0
+}
+interval(100)
+if(changed(PowerOn)&PowerOn){
+    PowerOnVal=!PowerOnVal
+}
+if(PowerOnVal){
+Power=(Cap-CPUUsage-GPUUsage-CRUsage)*PowerCut
+}else{
+Power=0
+}

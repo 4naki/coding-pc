@@ -1,0 +1,50 @@
+@name Graphics Interface
+@inputs String:string ConsoleString:string Power Stop ScreenPower ConsolePower PowerCut
+@outputs Node:string Usage ConsoleNode:string
+@persist Usage Stop
+@model models/hammy/pci_card.mdl
+interval(100)
+if(first()){
+    Usage=60
+    Stop=0
+}
+PowerOn=Power>0
+if(PowerCut==1){
+if(PowerOn){
+if(Power>Usage){
+if(ScreenPower){
+Node=String
+}else{
+Node=""
+}
+if(ConsolePower){
+ConsoleNode=ConsoleString
+}else{
+ConsoleNode=""
+}
+}
+}
+}else{
+Node=""
+ConsoleNode=""
+}
+if(dupefinished()){
+reset()
+}
+if(PowerCut==1){
+if(Power==0){
+if(ScreenPower){
+Node=String
+}else{
+Node=""
+}
+if(ConsolePower){
+ConsoleNode=ConsoleString
+}else{
+ConsoleNode=""
+}
+}
+}else{
+Node=""
+ConsoleNode=""
+}

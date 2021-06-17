@@ -1,0 +1,25 @@
+@name Sound Card
+@inputs SoundName:string Power [Speaker1 Speaker2 Speaker3 Speaker4]:entity
+@outputs Usage
+@persist Usage
+@model models/kobilica/transistorsmall.mdl
+if(first()){
+    Usage=20
+}
+if(Power>0){
+SoundNameOut=SoundName
+}else{
+SoundNameOut=""
+}
+if(Speaker1){
+Speaker1:soundPlay(1,0,SoundNameOut)
+}
+if(Speaker2){
+Speaker2:soundPlay(2,0,SoundNameOut)
+}
+if(Speaker3){
+Speaker3:soundPlay(3,0,SoundNameOut)
+}
+if(Speaker4){
+Speaker4:soundPlay(4,0,SoundNameOut)
+}

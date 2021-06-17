@@ -1,7 +1,7 @@
 @name Central Processing Unit
 @inputs LastSaidPerson:string LastSaid:string Update Power TextEntry:string
 @outputs StringOut:string Usage ConsoleOut:string Stop SoundFile:string
-@persist Count Text:string TextConsole:string String:string ConsoleString:string Usage TextEntry:string Song:string Program:string DefaultProgram:string ProgramData:string Ready WhatProgramtoStart PowerDown Stop SoundFile:string Song01Path:string Song02Path:string Song03Path:string
+@persist Count NextReset Text:string TextConsole:string String:string ConsoleString:string Usage TextEntry:string Song:string Program:string DefaultProgram:string ProgramData:string Ready WhatProgramtoStart PowerDown Stop SoundFile:string Song01Path:string Song02Path:string Song03Path:string
 @model models/cheeze/wires/cpu2.mdl
 runOnChat(1)
 interval(100)
@@ -16,7 +16,7 @@ if(first()){
     ConsoleOut=TextConsole+"<br>"+ConsoleString
     
     Usage=120
-    DefaultProgram="console"
+    DefaultProgram=""
     Ready=0
     PowerDown=0
     Stop=3
@@ -25,6 +25,8 @@ if(first()){
     Song01Path="music/HL2_song31.mp3"
     Song02Path="music/HL2_song20_submix0.mp3"
     Song03Path="music/HL2_song29.mp3"
+    
+    NextReset=0
 }
 PowerOn=Power>0
 
@@ -42,6 +44,7 @@ if(changed(!PowerOn)&!PowerOn){
 }
 if(PowerOn){
     Stop=3
+    NextReset=1
 if(Power>Usage){
 
 if(clk("startup")){
@@ -294,6 +297,9 @@ if(clk("powerDown")){
     PowerDown=0
     Stop=0
     StringOut=""
+    if(NextReset){
+        reset()
+    }
 }
 if(Stop==1){
 if(PowerDown==1){

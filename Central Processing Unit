@@ -2,6 +2,7 @@
 @inputs LastSaidPerson:string LastSaid:string Update Power TextEntry:string
 @outputs StringOut:string Usage ConsoleOut:string Stop SoundFile:string
 @persist Count NextReset Text:string TextConsole:string String:string ConsoleString:string Usage TextEntry:string Song:string Program:string DefaultProgram:string ProgramData:string Ready WhatProgramtoStart PowerDown Stop SoundFile:string Song01Path:string Song02Path:string Song03Path:string
+@persist Password:string AskPassword2 AskPassword EnterNewPassword LoggedIn
 @model models/cheeze/wires/cpu2.mdl
 runOnChat(1)
 interval(100)
@@ -27,6 +28,9 @@ if(first()){
     Song03Path="music/HL2_song29.mp3"
     
     NextReset=0
+    
+    Password="password"
+    LoggedIn=0
 }
 PowerOn=Power>0
 
@@ -60,6 +64,7 @@ if(clk("console2")){
     ConsoleOut=TextConsole+ConsoleString
 }
 if(clk("console3")){
+    timer("login",200)
     if(DefaultProgram==""){
     Program=""
     Ready=1
@@ -200,6 +205,93 @@ if(clk("mainScreen")){
 if(clk("clear")){
     StringOut=""
 }
+
+if(changed(TextEntry:lower()=="login")&TextEntry:lower()=="login"){
+    timer("login",200)
+}
+if(changed(TextEntry:lower()=="logout")&TextEntry:lower()=="logout"){
+    timer("login",200)
+}
+if(clk("login")){
+    timer("askpassword",200)
+    LoggedIn=0
+    StringOut=""
+}
+if(clk("askpassword")){
+    AskPassword=1
+    ConsoleString="<br>"+"Enter Password."
+    ConsoleOut=TextConsole+ConsoleString
+    StringOut=""
+}
+if(AskPassword==1){
+    StringOut=""
+    if(changed(TextEntry)&TextEntry){
+        if(TextEntry==Password){
+            AskPassword=0
+            ConsoleString="<br>"+"Logged in successfully."
+            ConsoleOut=TextConsole+ConsoleString
+            LoggedIn=1
+        }else{
+            AskPassword=1
+            ConsoleString="<br>"+"Incorrect Password."
+            ConsoleOut=TextConsole+ConsoleString
+            LoggedIn=0
+        }
+    }
+}
+
+if(changed(TextEntry:lower()=="changepassword")&TextEntry:lower()=="changepassword"){
+    timer("changepassword",200)
+}
+if(clk("changepassword")){
+    if(LoggedIn){
+        timer("passwordcheck",200)
+    }else{
+        timer("login",200)
+        ConsoleString="<br>"+"You must login to change your password."
+        ConsoleOut=TextConsole+ConsoleString
+    }
+}
+if(clk("passwordcheck")){
+    ConsoleString="<br>"+"Enter Password."
+    ConsoleOut=TextConsole+ConsoleString
+    AskPassword2=1
+}
+
+if(AskPassword2==1){
+    if(changed(TextEntry)&TextEntry){
+        if(TextEntry==Password){
+            AskPassword2=0
+            ConsoleString="<br>"+"Password Correct."
+            ConsoleOut=TextConsole+ConsoleString
+            timer("changepasswordscreen",200)
+        }else{
+            AskPassword2=1
+            ConsoleString="<br>"+"Incorrect Password."
+            ConsoleOut=TextConsole+ConsoleString
+        }
+    }
+}
+
+if(clk("changepasswordscreen")){
+    ConsoleString="<br>"+"Enter New Password."
+    ConsoleOut=TextConsole+ConsoleString
+    EnterNewPassword=1
+}
+
+if(EnterNewPassword==1){
+    if(changed(TextEntry)&TextEntry){
+        EnterNewPassword=0
+        Password=TextEntry
+        timer("passwordchanged",200)
+    }
+}
+if(clk("passwordchanged")){
+    ConsoleString="<br>"+"Password Changed."
+    ConsoleOut=TextConsole+ConsoleString
+    timer("login",200)
+}
+if(LoggedIn==1){
 if(Program:lower()=="chat"){
 if(clk("startupcheck")){
     timer("chatcheck",10)
@@ -226,17 +318,17 @@ if(changed(TextEntry:lower()=="play")&TextEntry:lower()=="play"){
     ConsoleOut=TextConsole+ConsoleString
 }
 if(changed(TextEntry:lower()=="song1")&TextEntry:lower()=="song1"){
-    ConsoleString="<br>"+"Playing Song1."
+    ConsoleString="<br>"+"Playing "+Song01Path+"."
     ConsoleOut=TextConsole+ConsoleString
     SoundFile=Song01Path
 }
 if(changed(TextEntry:lower()=="song2")&TextEntry:lower()=="song2"){
-    ConsoleString="<br>"+"Playing Song2."
+    ConsoleString="<br>"+"Playing "+Song02Path+"."
     ConsoleOut=TextConsole+ConsoleString
     SoundFile=Song02Path
 }
 if(changed(TextEntry:lower()=="song3")&TextEntry:lower()=="song3"){
-    ConsoleString="<br>"+"Playing Song3."
+    ConsoleString="<br>"+"Playing "+Song03Path+"."
     ConsoleOut=TextConsole+ConsoleString
     SoundFile=Song03Path
 }
@@ -287,10 +379,12 @@ timer("chatcheck",10)
 }
 }
 }
+}
 if(clk("shuttingdown")){
     PowerDown=1
     Stop=1
     ConsoleOut=""
+    LoggedIn=0
     timer("shuttingdown1",100)
 }
 if(clk("powerDown")){

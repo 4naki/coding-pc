@@ -43,6 +43,12 @@ for commands it has only few atm i plan on making hard drives etc
 
 commands:
 
+login (password) (this is opened by default when you start the pc) (default password is "password")
+
+changepassword (old password) (new password)
+
 play (song1-3)
 
 start (chat, console) (dungeon master is not coded in yet)
+
+(for keyboard set the hold length to 0.1)

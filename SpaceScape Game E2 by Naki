@@ -1,0 +1,85 @@
+@name SpaceScape (WIP, made for my e2 computer)
+@inputs Start TextEntry:string
+@outputs Picture:string On
+@persist On StringOut:string Picture:string
+interval(250)
+if(changed(Start)&Start){
+    timer("start",100)
+    On=1
+}
+if(On){
+    Picture=StringOut
+if(clk("start")){
+    timer("startSpaceScape",100)
+}
+if(clk("startSpaceScape")){
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                         Space Pirates TM                     "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                      "
+    timer("loadingscreen1",3000)
+}
+if(clk("loadingscreen1")){
+    #|--------------------------------------------------------------|
+    StringOut=
+    "                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                           SpaceScape                    "+
+    "<br>"+"                                                                       "+
+    "<br>"+"                                                                      "
+    timer("mainmenuscreen",2000)
+}
+if(clk("mainmenuscreen")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+"S p a c e S c a p e"+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"New Game"+ #7
+    "<br>"+"Options"+ #8
+    "<br>"+"Credits"+ #9
+    "<br>"+"Quit"+ #10
+    "<br>"+""+ #11
+    "<br>"+""+ #12
+    "<br>"+""+ #13
+    "<br>"+""+ #14
+    "<br>"+""+ #15
+    "<br>"+""+ #16
+    "<br>"+""+ #17
+    "<br>"+""  #18
+}
+}
+
+#[
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+""+ #7
+    "<br>"+""+ #8
+    "<br>"+""+ #9
+    "<br>"+""+ #10
+    "<br>"+""+ #11
+    "<br>"+""+ #12
+    "<br>"+""+ #13
+    "<br>"+""+ #14
+    "<br>"+""+ #15
+    "<br>"+""+ #16
+    "<br>"+""+ #17
+    "<br>"+""  #18
+

@@ -1,7 +1,11 @@
 @name SpaceScape (WIP, made for my e2 computer)
-@inputs Start TextEntry:string
+@inputs Start TextEntry:string Stop
 @outputs Picture:string On
-@persist On StringOut:string Picture:string EmptyHoldTime LetterHoldTime MainMenuOpenTime
+@persist On StringOut:string Picture:string EmptyHoldTime LetterHoldTime MainMenuOpenTime Ready 
+@persist MainMenu Credits Options NewGame Continue
+@persist Sounds UseSounds
+#debug
+@outputs MainMenu Credits Options NewGame Continue
 @model models/bull/gates/transistor1.mdl
 interval(250)
 if(first()){
@@ -9,19 +13,24 @@ if(first()){
     LetterHoldTime=1500
     MainMenuOpenTime=4000
     #Skip To
-    #timer("loadingscreen11",100)
+    #timer("mainmenuscreen",100)
+    
+    
+    UseSounds=1
 }
 if(changed(Start)&Start){
     timer("start",100)
+    StringOut=""
     On=1
 }
-if(changed(!Start)&!Start){
+if(changed(Stop)&Stop){
     On=0
 }
 Picture=StringOut
 if(On){
 if(clk("start")){
-    timer("startSpaceScape",100)
+    timer("startSpaceScape",3000)
+    StringOut=""
 }
 if(clk("startSpaceScape")){
     #|--------------------------------------------------------------|
@@ -193,17 +202,89 @@ if(clk("loadingscreen11")){
     timer("empty",EmptyHoldTime*2.5)
 }
 if(clk("mainmenuscreen")){
+    Ready=1
+    MainMenu=1
+}
+if(clk("empty")){
+    StringOut=""
+}
+if(Ready){
+    if(MainMenu){
+    if(TextEntry:lower()=="credits"){
+        Credits=1
+        MainMenu=0
+    }
+    if(TextEntry:lower()=="quit"){
+        On=0
+        MainMenu=0
+    }
+    if(TextEntry:lower()=="options"){
+        Options=1
+        MainMenu=0
+    }
+    StringOut=
+           "                                 '                           ."+ #1
+    "<br>"+"     ;            ."+ #2
+    "<br>"+""+ #3
+    "<br>"+" S p a c e S c a p e                     ."+ #4
+    "<br>"+"                           ."+ #5
+    "<br>"+"        .                                             ,"+ #6
+    "<br>"+" New Game"+ #7
+    "<br>"+" Options                         ."+ #8
+    "<br>"+" Credits                                                ."+ #9
+    "<br>"+" Quit                   ."+ #10
+    "<br>"+""+ #11
+    "<br>"+"."+ #12
+    "<br>"+"                                                ."+ #13
+    "<br>"+"          ."+ #14
+    "<br>"+"                ,"+ #15
+    "<br>"+""+ #16
+    "<br>"+"                  .               ."+ #17
+    "<br>"+"                    .                                ."  #18
+    }
+    if(Options){
     StringOut=
            ""+ #1
     "<br>"+""+ #2
-    "<br>"+""+ #3
-    "<br>"+" S p a c e S c a p e"+ #4
-    "<br>"+""+ #5
+    "<br>"+" Options"+ #3
+    "<br>"+""+ #4
+    "<br>"+" Sounds"+ #5
     "<br>"+""+ #6
-    "<br>"+" New Game"+ #7
-    "<br>"+" Options"+ #8
-    "<br>"+" Credits"+ #9
-    "<br>"+" Quit"+ #10
+    "<br>"+" Options"+ #7
+    "<br>"+""+ #8
+    "<br>"+" Options"+ #9
+    "<br>"+""+ #10
+    "<br>"+" Back"+ #11
+    "<br>"+""+ #12
+    "<br>"+""+ #13
+    "<br>"+""+ #14
+    "<br>"+""+ #15
+    "<br>"+""+ #16
+    "<br>"+""+ #17
+    "<br>"+""  #18
+    
+    if(TextEntry:lower()=="sounds"){
+        Sounds=1
+        Options=0
+    }
+    
+    if(TextEntry:lower()=="back"){
+        Options=0
+        MainMenu=1
+    } 
+    }
+    if(Sounds){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+" Sounds"+ #3
+    "<br>"+""+ #4
+    "<br>"+" On"+ #5
+    "<br>"+""+ #6
+    "<br>"+" Off"+ #7
+    "<br>"+""+ #8
+    "<br>"+" Back"+ #9
+    "<br>"+""+ #10
     "<br>"+""+ #11
     "<br>"+""+ #12
     "<br>"+""+ #13
@@ -212,11 +293,46 @@ if(clk("mainmenuscreen")){
     "<br>"+""+ #16
     "<br>"+""+ #17
     "<br>"+""  #18
-}
-if(clk("empty")){
-    StringOut=""
+    
+    if(TextEntry:lower()=="on"){
+        UseSounds=1
+    }
+    if(TextEntry:lower()=="off"){
+        UseSounds=0
+    }
+    if(TextEntry:lower()=="back"){
+        Sounds=0
+        Options=1
+    } 
+    }
+    if(Credits){
+    StringOut=
+           "                                   .        .."+ #1
+    "<br>"+"                 .                       .;:.           ."+ #2
+    "<br>"+"    .       S p a c e S c a p e; '     ."+ #3
+    "<br>"+"           .      .                 . ,:;.    .            ."+ #4
+    "<br>"+"           Project Developers."+ #5
+    "<br>"+"                                   ,: . ."+ #6
+    "<br>"+"      Lead Team Space Pirates"+ #7
+    "<br>"+"                     . Naki  .:,;'   . .                  .   ."+ #8
+    "<br>"+"                 .           . ,:  .     ."+ #9
+    "<br>"+"                   .  .   .  .;:.  .  .               ."+ #10
+    "<br>"+"        .           .      .,;  .   .                    ."+ #11
+    "<br>"+"                         . :;     .                          ."+ #12
+    "<br>"+"                .       . ;  .                        ."+ #13
+    "<br>"+"  .          .  .       . :.  ."+ #14
+    "<br>"+"                     .. ;.      ."+ #15
+    "<br>"+"                     .:.                      .           ."+ #16
+    "<br>"+"   .          .     . ..    .           .              ."+ #17
+    "<br>"+"        Back  ..."  #18
+    if(TextEntry:lower()=="back"){
+        Credits=0
+        MainMenu=1
+    }
+    }
 }
 }else{
+    Ready=0
     StringOut=""
 }
 

@@ -1,12 +1,23 @@
 @name SpaceScape (WIP, made for my e2 computer)
 @inputs Start TextEntry:string
 @outputs Picture:string On
-@persist On StringOut:string Picture:string
+@persist On StringOut:string Picture:string EmptyHoldTime LetterHoldTime MainMenuOpenTime
 interval(250)
+if(first()){
+    EmptyHoldTime=1000
+    LetterHoldTime=1500
+    MainMenuOpenTime=4000
+    #Skip To
+    #timer("loadingscreen11",100)
+}
 if(changed(Start)&Start){
     timer("start",100)
     On=1
 }
+if(changed(!Start)&!Start){
+    On=0
+}
+
 if(On){
     Picture=StringOut
 if(clk("start")){
@@ -21,37 +32,178 @@ if(clk("startSpaceScape")){
     "<br>"+"                                                                       "+
     "<br>"+"                                                                       "+
     "<br>"+"                                                                       "+
-    "<br>"+"                         Space Pirates TM                     "+
+    "<br>"+"                        Space Pirates TM                     "+
     "<br>"+"                                                                       "+
     "<br>"+"                                                                      "
-    timer("loadingscreen1",3000)
+    timer("loadingscreen1",5000)
+    timer("empty",2500)
 }
 if(clk("loadingscreen1")){
-    #|--------------------------------------------------------------|
     StringOut=
-    "                                                                       "+
-    "<br>"+"                                                                       "+
-    "<br>"+"                                                                       "+
-    "<br>"+"                                                                       "+
-    "<br>"+"                                                                       "+
-    "<br>"+"                                                                       "+
-    "<br>"+"                           SpaceScape                    "+
-    "<br>"+"                                                                       "+
-    "<br>"+"                                                                      "
-    timer("mainmenuscreen",2000)
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                S"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen2",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen2")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                p"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen3",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen3")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                a"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen4",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen4")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                c"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen5",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen5")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                e"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen6",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen6")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                S"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen7",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen7")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                c"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen8",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen8")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                a"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen9",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen9")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                p"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen10",LetterHoldTime+EmptyHoldTime)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen10")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                                e"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("loadingscreen11",LetterHoldTime+EmptyHoldTime*1.5)
+    timer("empty",EmptyHoldTime)
+}
+if(clk("loadingscreen11")){
+    StringOut=
+           ""+ #1
+    "<br>"+""+ #2
+    "<br>"+""+ #3
+    "<br>"+""+ #4
+    "<br>"+""+ #5
+    "<br>"+""+ #6
+    "<br>"+"                       S p a c e S c a p e"+ #7
+    "<br>"+""+ #8
+    "<br>"+"" #9
+    timer("mainmenuscreen",MainMenuOpenTime)
+    timer("empty",EmptyHoldTime*2.5)
 }
 if(clk("mainmenuscreen")){
     StringOut=
            ""+ #1
     "<br>"+""+ #2
     "<br>"+""+ #3
-    "<br>"+"S p a c e S c a p e"+ #4
+    "<br>"+" S p a c e S c a p e"+ #4
     "<br>"+""+ #5
     "<br>"+""+ #6
-    "<br>"+"New Game"+ #7
-    "<br>"+"Options"+ #8
-    "<br>"+"Credits"+ #9
-    "<br>"+"Quit"+ #10
+    "<br>"+" New Game"+ #7
+    "<br>"+" Options"+ #8
+    "<br>"+" Credits"+ #9
+    "<br>"+" Quit"+ #10
     "<br>"+""+ #11
     "<br>"+""+ #12
     "<br>"+""+ #13
@@ -61,6 +213,11 @@ if(clk("mainmenuscreen")){
     "<br>"+""+ #17
     "<br>"+""  #18
 }
+if(clk("empty")){
+    StringOut=""
+}
+}else{
+    StringOut=""
 }
 
 #[
@@ -82,4 +239,3 @@ if(clk("mainmenuscreen")){
     "<br>"+""+ #16
     "<br>"+""+ #17
     "<br>"+""  #18
-

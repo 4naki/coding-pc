@@ -1,6 +1,6 @@
 @name Central Processing Unit
-@inputs LastSaidPerson:string LastSaid:string Update Power TextEntry:string
-@outputs StringOut:string Usage ConsoleOut:string Stop SoundFile:string
+@inputs LastSaidPerson:string LastSaid:string Update Power TextEntry:string Picture:string
+@outputs StringOut:string Usage ConsoleOut:string Stop SoundFile:string StartSpaceScape
 @persist Count NextReset Text:string TextConsole:string String:string ConsoleString:string Usage TextEntry:string Song:string Program:string DefaultProgram:string ProgramData:string Ready WhatProgramtoStart PowerDown Stop SoundFile:string Song01Path:string Song02Path:string Song03Path:string
 @persist Password:string AskPassword2 AskPassword EnterNewPassword LoggedIn
 @model models/cheeze/wires/cpu2.mdl
@@ -313,6 +313,9 @@ String=LastSaidPerson+": "+LastSaid+"<br>"
 if(Program:lower()=="console"){
 StringOut=ConsoleOut
 }
+if(Program:lower()=="spacescape"){
+StringOut=Picture
+}
 if(changed(TextEntry:lower()=="play")&TextEntry:lower()=="play"){
     ConsoleString="<br>"+"play: Song Name."
     ConsoleOut=TextConsole+ConsoleString
@@ -360,22 +363,30 @@ if(changed(TextEntry:lower()=="console")&TextEntry:lower()=="console"){
     timer("startprogram",500)
     Program="Console"
 }
-if(changed(TextEntry:lower()=="dungeon master")&TextEntry:lower()=="dungeon master"){
+if(changed(TextEntry:lower()=="spacescape")&TextEntry:lower()=="spacescape"){
     WhatProgramtoStart=0
-    if(Program:lower()=="dungeon master"){
+    if(Program:lower()=="spacescape"){
     ConsoleString="<br>"+"This program is already open."
     ConsoleOut=TextConsole+ConsoleString
     }else{
-    ConsoleString="<br>"+"Starting Dungeon Master."
+    ConsoleString="<br>"+"Starting SpaceScape."
     ConsoleOut=TextConsole+ConsoleString
     timer("startprogram",800)
-    Program="Dungeon Master"
+    timer("startSpaceScape",200)
+    Program="SpaceScape"
     }
 }
 if(clk("startprogram")){
 ConsoleString="<br>"+Program+" Started."
 ConsoleOut=TextConsole+ConsoleString
 timer("chatcheck",10)
+}
+if(clk("startSpaceScape")){
+#timer("stopstart",100)
+StartSpaceScape=1
+}
+if(clk("stopstart")){
+StartSpaceScape=0
 }
 }
 }

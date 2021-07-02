@@ -1,6 +1,6 @@
 @name Central Processing Unit
 @inputs LastSaidPerson:string LastSaid:string Update Power TextEntry:string Picture:string
-@outputs StringOut:string Usage ConsoleOut:string Stop SoundFile:string StartSpaceScape
+@outputs StringOut:string Usage ConsoleOut:string Stop SoundFile:string StartSpaceScape StopGame
 @persist Count NextReset Text:string TextConsole:string String:string ConsoleString:string Usage TextEntry:string Song:string Program:string DefaultProgram:string ProgramData:string Ready WhatProgramtoStart PowerDown Stop SoundFile:string Song01Path:string Song02Path:string Song03Path:string
 @persist Password:string AskPassword2 AskPassword EnterNewPassword LoggedIn
 @model models/cheeze/wires/cpu2.mdl
@@ -389,11 +389,16 @@ ConsoleOut=TextConsole+ConsoleString
 timer("chatcheck",10)
 }
 if(clk("startSpaceScape")){
+    timer("stopstart",200)
 StartSpaceScape=1
 }
+if(clk("stopstart")){
+StartSpaceScape=0
+}
 if(Program:lower()=="spacescape"){
-    
+    StopGame=0
 }else{
+    StopGame=1
     StartSpaceScape=0
 }
 }

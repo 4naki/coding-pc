@@ -379,7 +379,7 @@ if(changed(TextEntry:lower()=="spacescape")&TextEntry:lower()=="spacescape"){
     ConsoleOut=TextConsole+ConsoleString
     timer("startprogram",800)
     timer("startSpaceScape",200)
-    Program="SpaceScape"
+    Program="spacescape"
     }
     }
 }
@@ -389,11 +389,12 @@ ConsoleOut=TextConsole+ConsoleString
 timer("chatcheck",10)
 }
 if(clk("startSpaceScape")){
-#timer("stopstart",100)
 StartSpaceScape=1
 }
-if(clk("stopstart")){
-StartSpaceScape=0
+if(Program:lower()=="spacescape"){
+    
+}else{
+    StartSpaceScape=0
 }
 }
 }
@@ -403,6 +404,7 @@ if(clk("shuttingdown")){
     Stop=1
     ConsoleOut=""
     LoggedIn=0
+    Program=""
     timer("shuttingdown1",100)
 }
 if(clk("powerDown")){

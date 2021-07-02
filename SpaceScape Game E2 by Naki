@@ -2,6 +2,7 @@
 @inputs Start TextEntry:string
 @outputs Picture:string On
 @persist On StringOut:string Picture:string EmptyHoldTime LetterHoldTime MainMenuOpenTime
+@model models/bull/gates/transistor1.mdl
 interval(250)
 if(first()){
     EmptyHoldTime=1000
@@ -17,9 +18,8 @@ if(changed(Start)&Start){
 if(changed(!Start)&!Start){
     On=0
 }
-
+Picture=StringOut
 if(On){
-    Picture=StringOut
 if(clk("start")){
     timer("startSpaceScape",100)
 }

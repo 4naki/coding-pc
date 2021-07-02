@@ -346,6 +346,7 @@ if(changed(TextEntry:lower()=="start")&TextEntry:lower()=="start"){
     ConsoleOut=TextConsole+ConsoleString
 }
 if(changed(TextEntry:lower()=="chat")&TextEntry:lower()=="chat"){
+    if(WhatProgramtoStart==1){
     WhatProgramtoStart=0
     if(Program:lower()=="chat"){
     ConsoleString="<br>"+"This program is already open."
@@ -356,14 +357,19 @@ if(changed(TextEntry:lower()=="chat")&TextEntry:lower()=="chat"){
     timer("startprogram",500)
     Program="Chat"
     }
+    }
 }
 if(changed(TextEntry:lower()=="console")&TextEntry:lower()=="console"){
+    if(WhatProgramtoStart==1){
+        WhatProgramtoStart=0
     ConsoleString="<br>"+"Starting Console."
     ConsoleOut=TextConsole+ConsoleString
     timer("startprogram",500)
     Program="Console"
+    }
 }
 if(changed(TextEntry:lower()=="spacescape")&TextEntry:lower()=="spacescape"){
+    if(WhatProgramtoStart==1){
     WhatProgramtoStart=0
     if(Program:lower()=="spacescape"){
     ConsoleString="<br>"+"This program is already open."
@@ -374,6 +380,7 @@ if(changed(TextEntry:lower()=="spacescape")&TextEntry:lower()=="spacescape"){
     timer("startprogram",800)
     timer("startSpaceScape",200)
     Program="SpaceScape"
+    }
     }
 }
 if(clk("startprogram")){

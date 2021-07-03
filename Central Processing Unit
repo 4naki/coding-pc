@@ -1,5 +1,5 @@
 @name Central Processing Unit
-@inputs LastSaidPerson:string LastSaid:string Update Power TextEntry:string Picture:string
+@inputs LastSaidPerson:string LastSaid:string Update Power TextEntry:string Picture:string SoundPath:string
 @outputs StringOut:string Usage ConsoleOut:string Stop SoundFile:string StartSpaceScape StopGame
 @persist Count NextReset Text:string TextConsole:string String:string ConsoleString:string Usage TextEntry:string Song:string Program:string DefaultProgram:string ProgramData:string Ready WhatProgramtoStart PowerDown Stop SoundFile:string Song01Path:string Song02Path:string Song03Path:string
 @persist Password:string AskPassword2 AskPassword EnterNewPassword LoggedIn
@@ -315,6 +315,7 @@ StringOut=ConsoleOut
 }
 if(Program:lower()=="spacescape"){
 StringOut=Picture
+SoundFile=SoundPath
 }
 if(changed(TextEntry:lower()=="play")&TextEntry:lower()=="play"){
     ConsoleString="<br>"+"play: Song Name."

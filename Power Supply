@@ -1,5 +1,5 @@
 @name Power Supply
-@inputs PowerOn PowerCut CPUUsage GPUUsage CRUsage
+@inputs PowerOn PowerCut ShutDown CPUUsage GPUUsage CRUsage SCUsage
 @outputs Power 
 @persist Cap PowerOnVal
 @model models/bull/gates/resistor.mdl
@@ -12,7 +12,10 @@ if(changed(PowerOn)&PowerOn){
     PowerOnVal=!PowerOnVal
 }
 if(PowerOnVal){
-Power=(Cap-CPUUsage-GPUUsage-CRUsage)*PowerCut
+    if(ShutDown){
+        PowerOnVal=!PowerOnVal
+    }
+Power=(Cap-CPUUsage-GPUUsage-CRUsage-SCUsage)*PowerCut
 }else{
 Power=0
 }

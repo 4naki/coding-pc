@@ -38,6 +38,9 @@ if(changed(PowerOn)&PowerOn){
     timer("startup",100)
 }
 if(changed(!PowerOn)&!PowerOn){
+    timer("shutdownprocess",100)
+}
+if(clk("shutdownprocess")){
     stoptimer("startup")
     stoptimer("mainScreen")
     stoptimer("startup1")
@@ -50,7 +53,9 @@ if(PowerOn){
     Stop=3
     NextReset=1
 if(Power>Usage){
-
+if(changed(TextEntry:lower()=="shutdown")&TextEntry:lower()=="shutdown"){
+    timer("shutdownprocess",100)
+}
 if(clk("startup")){
     timer("mainScreen",7200)
     timer("startup1",1500)
